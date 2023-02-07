@@ -132,7 +132,7 @@ public class ListaLigada implements EstruturaDeDados{
             return true;
         }
         else{
-            search(inicio.getProximo().getValor());
+            searchNo(inicio.getProximo(), chave);
         }
         return false;
     }
@@ -161,7 +161,7 @@ public class ListaLigada implements EstruturaDeDados{
         return 0;
     }
 
-    public boolean seachNo(No no, int chave){
+    public boolean searchNo(No no, int chave){
         if(no.getValor() == chave){
             return true;
         }
@@ -169,7 +169,7 @@ public class ListaLigada implements EstruturaDeDados{
             return false;
         }
         else{
-            return seachNo(no.getProximo(), chave);
+            return searchNo(no.getProximo(), chave);
         }
     }
 }
