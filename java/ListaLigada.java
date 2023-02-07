@@ -106,19 +106,34 @@ public class ListaLigada implements EstruturaDeDados{
 
     @Override
     public boolean insert(int chave) {
-        // TODO Auto-generated method stub
+        if(inicio == null){
+            inicio = new No(chave); 
+            return true;           
+        }
+        else{
+            No no = new No(chave);
+            no.setProximo(inicio);
+            inicio = no;
+            return true;
+        }
+    }
+
+    @Override
+    public boolean delete(int chave){
+        if(search(chave)){
+            
+        }   
         return false;
     }
 
     @Override
-    public boolean delete(int chave) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean search(int chave) {
-        // TODO Auto-generated method stub
+    public boolean search(int chave){
+        if(inicio.getValor() == chave){
+            return true;
+        }
+        else{
+            search(inicio.getProximo().getValor());
+        }
         return false;
     }
 
@@ -144,5 +159,17 @@ public class ListaLigada implements EstruturaDeDados{
     public int prodessor(int chave) {
         // TODO Auto-generated method stub
         return 0;
+    }
+
+    public boolean seachNo(No no, int chave){
+        if(no.getValor() == chave){
+            return true;
+        }
+        else if(no.getProximo() == null){
+            return false;
+        }
+        else{
+            return seachNo(no.getProximo(), chave);
+        }
     }
 }
