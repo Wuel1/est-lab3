@@ -4,13 +4,13 @@ public class ListaLigada implements EstruturaDeDados{
     public static void main(String[] args) {
         
         ListaLigada teste = new ListaLigada();
-        System.out.println(teste.insert(10));
+        System.out.println(teste.insert(2));
         System.out.println(teste.insert(10));
         System.out.println(teste.insert(10));
         System.out.println(teste.insert(20));
         System.out.println(teste.insert(32));
         System.out.println(teste.insert(10));
-        System.out.println(teste.insert(10));
+        System.out.println(teste.insert(35));
         System.out.println(teste.insert(10));
 
 
@@ -19,6 +19,9 @@ public class ListaLigada implements EstruturaDeDados{
         System.out.println(teste.sucessor(32));
         System.out.println(teste.prodessor(32));
         System.out.println(teste.delete(32));
+        System.out.println(teste.search(32));
+        System.out.println(teste.minimum());
+        System.out.println(teste.maximum());
 
 
 
@@ -46,8 +49,8 @@ public class ListaLigada implements EstruturaDeDados{
 
     @Override
     public boolean delete(int chave){
-        if(search(chave)){
-
+        if(searchNo(inicio, chave)){
+            return searchDetele(inicio, chave);
         }
         return false;
     }
@@ -64,14 +67,27 @@ public class ListaLigada implements EstruturaDeDados{
 
     @Override
     public int minimum() {
-        // TODO Auto-generated method stub
-        return 0;
+        int valor = inicio.getValor();
+        if(searchNo(inicio, valor)){
+            if(inicio.getValor() < valor){
+                valor = inicio.getValor();
+                return valor;
+            }
+        }
+        return valor;
     }
 
     @Override
     public int maximum() {
-        // TODO Auto-generated method stub
-        return 0;
+        int valor = inicio.getValor();
+        if(searchNo(inicio, valor)){
+            if(inicio.getValor() > valor){
+                valor = inicio.getValor();
+                return valor;
+            }
+        }
+        return valor;
+  
     }
 
     @Override
@@ -88,7 +104,7 @@ public class ListaLigada implements EstruturaDeDados{
             return -1;
         }
         else if(search(chave)){
-            int anterior = searchDelete(inicio, chave);
+            int anterior = searchAnterior(inicio, chave);
             return anterior;
         }
         return 0;
@@ -129,17 +145,33 @@ public class ListaLigada implements EstruturaDeDados{
         }
     }
 
-    public int searchDelete(No no, int chave){
+    public int searchAnterior(No no, int chave){
         if(no.getProximo().getValor() == chave){
             return no.getValor();
         }
         else if(no.getProximo() == null){
-            return 0;
+            return -1;
         }
         else{
-            return searchDelete(no.getProximo(), chave);
+            return searchAnterior(no.getProximo(), chave);
         }
     }
+
+    public boolean searchDetele(No no, int chave){        
+        if(no.getProximo().getValor() == chave){
+            no.setProximo(no.getProximo().getProximo());
+            return true;
+        }
+        else if(no.getProximo() == null){
+            return false;
+        }
+        else{
+            return searchDetele(no.getProximo(), chave);
+        }
+
+    }
+
+        
 
     // public No RetornaNo(int chave){
     //     if(search(chave)){
