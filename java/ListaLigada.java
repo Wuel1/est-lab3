@@ -7,7 +7,7 @@ public class ListaLigada implements EstruturaDeDados{
         System.out.println(teste.insert(10));
         System.out.println(teste.insert(10));
         System.out.println(teste.insert(10));
-        System.out.println(teste.insert(10));
+        System.out.println(teste.insert(20));
         System.out.println(teste.insert(32));
         System.out.println(teste.insert(10));
         System.out.println(teste.insert(10));
@@ -15,6 +15,9 @@ public class ListaLigada implements EstruturaDeDados{
 
 
         System.out.println(teste.search(32));
+        System.out.println(teste.sucessor(20));
+        System.out.println(teste.sucessor(32));
+        System.out.println(teste.prodessor(32));
         System.out.println(teste.delete(32));
 
 
@@ -44,7 +47,7 @@ public class ListaLigada implements EstruturaDeDados{
     @Override
     public boolean delete(int chave){
         if(search(chave)){
-           return searchNoDelete(inicio, chave);
+
         }
         return false;
     }
@@ -74,14 +77,20 @@ public class ListaLigada implements EstruturaDeDados{
     @Override
     public int sucessor(int chave) {
         if(search(chave)){
-
+            return searchSucessor(inicio, chave);
         }
-        return 0;
+        return -1;
     }
 
     @Override
     public int prodessor(int chave) {
-        // TODO Auto-generated method stub
+        if(inicio.getProximo() == null){
+            return -1;
+        }
+        else if(search(chave)){
+            int anterior = searchDelete(inicio, chave);
+            return anterior;
+        }
         return 0;
     }
 
@@ -107,16 +116,28 @@ public class ListaLigada implements EstruturaDeDados{
         }
     }
     
-    public boolean searchNoDelete(No no, int chave){
-        if(no.getValor() == chave){
-            no.setProximo(null);
-            return true;
+    public int searchSucessor(No no, int chave){
+        if(no.getProximo() == null){            
+            return -1;
         }
-        else if(no.getProximo() == null){
-            return false;
+        else if(no.getValor() == chave){
+            int NoSucessor = no.getProximo().getValor();
+            return NoSucessor;
         }
         else{
-            return searchNo(no.getProximo(), chave);
+            return searchSucessor(no.getProximo(), chave);
+        }
+    }
+
+    public int searchDelete(No no, int chave){
+        if(no.getProximo().getValor() == chave){
+            return no.getValor();
+        }
+        else if(no.getProximo() == null){
+            return 0;
+        }
+        else{
+            return searchDelete(no.getProximo(), chave);
         }
     }
 
