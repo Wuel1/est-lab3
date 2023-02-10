@@ -11,9 +11,13 @@ public class ListaLigada implements EstruturaDeDados{
         System.out.println(teste.insert(32));
         System.out.println(teste.insert(10));
         System.out.println(teste.insert(35));
+        System.out.println(teste.insert(1));
         System.out.println(teste.insert(10));
 
+        System.out.println("-----------------");
 
+
+        System.out.println(teste.search(31));
         System.out.println(teste.search(32));
         System.out.println(teste.sucessor(20));
         System.out.println(teste.sucessor(32));
@@ -67,27 +71,15 @@ public class ListaLigada implements EstruturaDeDados{
 
     @Override
     public int minimum() {
-        int valor = inicio.getValor();
-        if(searchNo(inicio, valor)){
-            if(inicio.getValor() < valor){
-                valor = inicio.getValor();
-                return valor;
-            }
-        }
-        return valor;
+        int valor = 99999999;
+        return ComparaMinimo(inicio, valor);
     }
+    
 
     @Override
     public int maximum() {
-        int valor = inicio.getValor();
-        if(searchNo(inicio, valor)){
-            if(inicio.getValor() > valor){
-                valor = inicio.getValor();
-                return valor;
-            }
-        }
-        return valor;
-  
+        int valor = 0;
+        return ComparaMaximo(inicio, valor);
     }
 
     @Override
@@ -168,7 +160,34 @@ public class ListaLigada implements EstruturaDeDados{
         else{
             return searchDetele(no.getProximo(), chave);
         }
+    }
 
+    public int ComparaMaximo(No no, int chave){
+        int valor = chave;
+        if(no.getValor() > chave){
+            valor = no.getValor();
+            return ComparaMaximo(no.getProximo(), valor);
+        }
+        else if(no.getProximo() == null){
+            return valor;
+        }
+        else{
+            return ComparaMaximo(no.getProximo(), valor);
+        }
+    }
+
+    public int ComparaMinimo(No no, int chave){
+        int valor = chave;
+        if(no.getValor() < chave){
+            valor = no.getValor();
+            return ComparaMinimo(no.getProximo(), valor);
+        }
+        else if(no.getProximo() == null){
+            return valor;
+        }
+        else{
+            return ComparaMinimo(no.getProximo(), valor);
+        }
     }
 
         

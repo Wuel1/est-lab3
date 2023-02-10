@@ -16,7 +16,7 @@ public class No{
     }
 
     public int getValor() {
-        return valor;
+        return this.valor;
         }
 
     public void setValor(int novo) {
